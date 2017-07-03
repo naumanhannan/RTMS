@@ -10,13 +10,10 @@ class VehicleCount(models.Model):
     entry_time = models.DateTimeField(auto_now_add=True)
     location = models.ForeignKey(Location)
 	
-
-
 class ExitCount(models.Model):
 	exit_time = models.DateTimeField(auto_now_add=True)
 	location = models.ForeignKey(Location)
 	
-
 class TraficTimes(models.Model):
 	start_time = models.DateTimeField()
 	end_time = models.DateTimeField()

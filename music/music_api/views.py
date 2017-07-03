@@ -65,16 +65,21 @@ def trafic_count_10_11(request):
 
 @api_view(['GET'])
 def trafic_count_add_all_today(request):
-	count = 0
-	arr = VehicleCount.objects.filter(entry_time__range = (datetime.now() - timedelta(minutes=12) , datetime.now()))
-	arr2 = ExitCount.objects.filter(exit_time__range = (datetime.now() - timedelta(minutes=12) , datetime.now()))	
-	print (arr.count())
-	if (arr.count() > 0 ):	
-		obj = TraficTimes(entry_count=arr.count() , exit_count= arr2.count() ,
-		  start_time=datetime.now(),
-		   end_time = (datetime.now() - timedelta(minutes=12) ) ,
-		   location_id= Location.objects.first().id)
-		obj.save()
+	all_locations = Location.objects.all()
+
+	for loc in all_locations:
+		count = 0
+		arr = VehicleCount.objects.filter(entry_time__range = (datetime.now() - timedelta(minutes=12) ,
+		 datetime.now()) , location_id = loc.id)
+		arr2 = ExitCount.objects.filter(exit_time__range = (datetime.now() - timedelta(minutes=12) ,
+		 datetime.now()) , location_id = loc.id)	
+		print (arr.count())
+		if (arr.count() > 0 ):	
+			obj = TraficTimes(entry_count=arr.count() , exit_count= arr2.count() ,
+			  start_time=datetime.now(),
+			   end_time = (datetime.now() - timedelta(minutes=12) ) ,
+			   location_id= loc.id)
+			obj.save()
 		print ("Entry Hwi")		
 
 	# arr2 = ExitCount.objects.filter(exit_time__range= datetime.datetime.now() - datetime.timedelta(minutes=20),
@@ -116,3 +121,30 @@ def iniciate_program(request):
 	add_in_entry_time()
 	data = {"background": "Job start"}
 	return  Response(data)
+
+
+#----------------------
+
+
+@api_view(['GET'])
+def application_ko_dyna(request , location_name):
+	loc = Location.objects.get(location_name= location_name)
+	locations_filter = TraficTimes.objects.filter(location_id = loc.id)
+	last_entry = locations_filter.last()
+
+	data = "No Congestion"
+
+	ent = last_entry.entry_count
+	ext = last_entry.exit_count
+	ans = ent - ext
+	if (ans <= 10 ):
+		data = "No Congestion"
+	elif(ans > 10 and ans <= 20 ):
+		data = "Medium Congestion"
+	elif(ans > 20 ):
+		data = "Heavy Congestion"
+
+	res = {"Traffic": data}
+	return Response(res)
+	# serializer = TraficTimesSerializer(last_entry)
+	# return Response(serializer.data)
