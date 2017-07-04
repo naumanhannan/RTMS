@@ -28,7 +28,7 @@ SECRET_KEY = '2!=z775x#xigt+9ikng&wv+24i6f3!wu#p&g06ah%_8hn0mi^5'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['majestic-yosemite-83142.herokuapp.com']
 
 
 # Application definition
