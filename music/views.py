@@ -2,6 +2,7 @@ from django.http import HttpResponse
 from rest_framework.views import APIView
 from django.shortcuts import render , redirect
 from .models import VehicleCount
+from .models import ExitCount
 from rest_framework.response import Response
 from rest_framework import status
 from time import gmtime, strftime
