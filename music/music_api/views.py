@@ -137,13 +137,30 @@ def application_ko_dyna(request , location_name):
 	ent = last_entry.entry_count
 	ext = last_entry.exit_count
 	ans = ent - ext
-	if (ans <= 10 ):
-		data = "No Congestion"
-	elif(ans > 10 and ans <= 20 ):
-		data = "Medium Congestion"
-	elif(ans > 20 ):
-		data = "Heavy Congestion"
+	print("ent",ent)
+	print("ext",ext)
+	print ("ooooo")
+	if( ans > 0):
+		if (ans <= 10 or ans <= 20):
+			data = "No Congestion"
+			print("no congestion")
+		elif(ans > 20 and ans < 30 ):
+			data = "Medium Congestion"
+			print("Medium congestion")
+		elif(ans >= 30):
+			data = "Heavy Congestion"
+			print("Heavy congestion") 
+	if(ans<0):  
+		if ( ans >= -10 or ans >=-20):
+			print("no congestion")
+		elif (ans < -20 and ans >= -30 ):
+			data = "Medium Congestion"
+			print("Medium congestion")
+		elif( ans < -30 ):
+			data = "Heavy Congestion"
+			print("Heavy congestion")
 
+      
 	res = {"Traffic": data}
 	return Response(res)
 	# serializer = TraficTimesSerializer(last_entry)

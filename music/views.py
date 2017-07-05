@@ -11,9 +11,22 @@ def index(request):
 
 def read_file(request):
     vehicle_entrys = VehicleCount.objects.all()
-    vehicle_entry = VehicleCount.objects.create()
+    vehicle_entry = VehicleCount.objects.create(location_id="1")
+    
     vehicle_entry.save()
+    
     return render(request , 'music/show.html' , {'vehicle_entrys' : vehicle_entrys})
+
+
+
+def exit_file(request):
+    
+    vehicle_entrys = ExitCount.objects.all()
+    vehicle_entry = ExitCount.objects.create(location_id="1")
+    
+    vehicle_entry.save()
+
+    return HttpResponse("<h1> this is my page<h1>")
 
 def alldata(APIView):
     def get(self):
