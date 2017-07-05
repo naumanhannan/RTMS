@@ -76,8 +76,8 @@ def trafic_count_add_all_today(request):
 		print (arr.count())
 		if (arr.count() > 0 ):	
 			obj = TraficTimes(entry_count=arr.count() , exit_count= arr2.count() ,
-			  start_time=datetime.now(),
-			   end_time = (datetime.now() - timedelta(minutes=12) ) ,
+			  start_time=datetime.now() - timedelta(minutes=10),
+			   end_time = (datetime.now() ) ,
 			   location_id= loc.id)
 			obj.save()
 		print ("Entry Hwi")		
