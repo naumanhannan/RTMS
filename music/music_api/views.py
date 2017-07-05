@@ -69,9 +69,9 @@ def trafic_count_add_all_today(request):
 
 	for loc in all_locations:
 		count = 0
-		arr = VehicleCount.objects.filter(entry_time__range = (datetime.now() - timedelta(minutes=12) ,
+		arr = VehicleCount.objects.filter(entry_time__range = (datetime.now() - timedelta(minutes=10) ,
 		 datetime.now()) , location_id = loc.id)
-		arr2 = ExitCount.objects.filter(exit_time__range = (datetime.now() - timedelta(minutes=12) ,
+		arr2 = ExitCount.objects.filter(exit_time__range = (datetime.now() - timedelta(minutes=10) ,
 		 datetime.now()) , location_id = loc.id)	
 		print (arr.count())
 		if (arr.count() > 0 ):	
